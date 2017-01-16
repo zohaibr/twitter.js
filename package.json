@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jwunder127/twitter-js#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "volleyball": "^1.4.1"
   }
 }
