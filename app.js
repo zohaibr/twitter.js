@@ -13,8 +13,7 @@ app.set('view engine', 'html');
 app.engine('html', nunjucks.render);
 nunjucks.configure('views', {noCache: true});
 
-app.use('/', routes(io));
-
-app.listen(3002);
-const server = app.listen(3002);
+const server = app.listen(3000);
 const io = socketio.listen(server);
+
+app.use('/', routes(io));
