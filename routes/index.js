@@ -4,31 +4,32 @@ const bodyParser = require('body-parser');
 
 const tweetBank = require('../tweetBank');
 
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
+module.exports = function (io) {
+  router.use(bodyParser.urlencoded({ extended: false }));
+  router.use(bodyParser.json());
 
 
-router.get('/', function(req, res) {
-  let tweets = tweetBank.list();
-  console.log(tweets);
-  res.render('index', {tweets: tweets, showForm: true});
-});
+  router.get('/', function(req, res) {
+    let tweets = tweetBank.list();
+    res.render('index', {tweets: tweets, showForm: true});
+  });
 
-router.post('/tweets', function (req, res) {
-  const name = req.body.name;
-  const text = req.body.text;
-  tweetBank.add(name, text);
-  res.redirect('/');
+  router.post('/tweets', function (req, res) {
+    const name = req.body.name;
+    const text = req.body.text;
+    tweetBank.add(name, text);
+    res.redirect('/');
 
-});
+  });
 
-router.get('/users/:name', function(req, res) {
-  var name = req.params.name;
-  var list = tweetBank.find( {name: name});
-  console.log(list[0].name);
-  res.render('index', {list: list, showForm: true});
-});
+  router.get('/users/:name', function(req, res) {
+    var name = req.params.name;
+    var list = tweetBank.find( {name: name});
+    console.log(name);
+    res.render('index', {list: list, name: name, showForm: true});
+  });
 
-router.use(express.static('public'));
+  router.use(express.static('public'));
 
-module.exports = router;
+  return router;
+};
