@@ -22,12 +22,6 @@ app.engine('html', nunjucks.render);
 nunjucks.configure('views', {noCache: true});
 
 //Below renders to index.html in the views folder.
-nunjucks.render('index.html', locals, function (err, output) {
-  if (err) throw err;
-  console.log(output);
-});
-
-
 app.get('/views', function (req, res){
   res.render('index', locals, function(err, html) {
     if (err) console.log(err);
