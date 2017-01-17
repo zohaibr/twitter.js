@@ -2,18 +2,9 @@ const express = require('express');
 const volleyball = require('volleyball');
 const nunjucks = require('nunjucks');
 const app = express();
+const routes = require('./routes');
 
 app.use(volleyball);
-
-//We are defining what to render with nunjucks with the below object
-const locals = {
-    title: 'An Example',
-    people: [
-        { name: 'Gandalf'},
-        { name: 'Frodo' },
-        { name: 'Hermione'}
-    ]
-};
 
 //This is the boiler setup for Nunjucks
 //App.set is setting the default view engine's extension to HTML.
@@ -21,12 +12,6 @@ app.set('view engine', 'html');
 app.engine('html', nunjucks.render);
 nunjucks.configure('views', {noCache: true});
 
-//Below renders to index.html in the views folder.
-app.get('/views', function (req, res){
-  res.render('index', locals, function(err, html) {
-    if (err) console.log(err);
-    res.send(html);
-  });
-});
+app.use('/', routes);
 
-app.listen(3001);
+app.listen(3002);
